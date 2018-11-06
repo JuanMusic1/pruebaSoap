@@ -24,13 +24,17 @@
 	$historial  = $result->data; 
 
 
-    //Números calientes
-	$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
+	//Números calientes
+	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->setCalientes($cantidadCalientes);
+	$calientes = $result->data;
+
+	/*$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
     $client 	= curl_init($url);
 	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 	$response 	= curl_exec($client);	
 	$result 	= json_decode($response);
-	$calientes  = $result->data; 
+	$calientes  = $result->data; */
 
     //Números fríos
 	$url    	= getUrlBase()."source/apis/apiFrios.php?cantidad=$cantidadFrios";
