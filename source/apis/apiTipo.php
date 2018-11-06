@@ -25,13 +25,13 @@
             if($value != 0){
                 $cantidadApostada = $value;
                 switch($key){
-                    case "1to18":
-                        if($ganador>=1 && $ganador<=18){
+                    case "par":
+                        if($ganador % 2 == 0){
                             $cantidadPago = 2 * $cantidadApostada;
                         }
                         break;
-                    case "19to36":
-                        if($ganador>=19 && $ganador<=36){
+                    case "impar":
+                        if($ganador % 2 != 0){
                             $cantidadPago = 2 * $cantidadApostada;
                         }
                         break;
