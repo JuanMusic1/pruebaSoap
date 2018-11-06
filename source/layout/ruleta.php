@@ -38,13 +38,11 @@
     $apuestaTIpo    = $result->data->cantidadApostada;
 
     //Analizar premio por color
-    $url    	    = getUrlBase()."source/apis/apiColor.php?id=$id";
-    $client 	    = curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	    = curl_exec($client);	
-	$result 	    = json_decode($response);
-    $premioColor    = $result->data->cantidadPago;      
-    $apuestaColor   = $result->data->cantidadApostada;
+    $client=new SoapClient('http://localhost/source/server/setColor.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp=$client->Generar($id);
+    $resp=json_decode($resp);
+    $premioFilas    = $resp->cantidadPago;
+    $apuestaFilas   = $resp->cantidadApostada;
 
     //Analizar premio por fila
   
@@ -62,13 +60,11 @@
     $apuestaFilas   = $resp->cantidadApostada;
 
     //Analizar premio por mitad
-    $url    	    = getUrlBase()."source/apis/apiMitad.php?id=$id";
-    $client 	    = curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	    = curl_exec($client);	
-	$result 	    = json_decode($response);
-    $premioMitad    = $result->data->cantidadPago;      
-    $apuestaMitad   = $result->data->cantidadApostada;
+    $client=new SoapClient('http://localhost/source/server/setMitad.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp=$client->Generar($id);
+    $resp=json_decode($resp);
+    $premioFilas    = $resp->cantidadPago;
+    $apuestaFilas   = $resp->cantidadApostada;
 
     //Resetar tabla fichas
     $Query = new Query();
