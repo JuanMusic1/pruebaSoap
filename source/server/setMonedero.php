@@ -11,7 +11,7 @@
         response(400,"Invalid Request",NULL);
     }
 
-    function Generar($id){
+    function setMonedero($id){
         $Query      = new Query();
 	    $monedero   = $Query->getMonedero($id);
         $monedero   = json_decode($monedero);
