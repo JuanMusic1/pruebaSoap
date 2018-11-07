@@ -24,17 +24,13 @@
 	$historial  = $result->data; 
 
 
-	//Números calientes
-	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp = $client->setCalientes($cantidadCalientes);
-	$calientes = $result->data;
-
-	/*$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
+    //Números calientes
+	$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
     $client 	= curl_init($url);
 	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 	$response 	= curl_exec($client);	
 	$result 	= json_decode($response);
-	$calientes  = $result->data; */
+	$calientes  = $result->data; 
 
     //Números fríos
 	$url    	= getUrlBase()."source/apis/apiFrios.php?cantidad=$cantidadFrios";
@@ -145,6 +141,8 @@ $(document).ready(function(){
 						    <div><span class="<?php echo $historial->color[5] ?>" id="historial-6"><?php echo $historial->numero[5] ?></span></div>
 							<div><span class="<?php echo $historial->color[6] ?>" id="historial-7"><?php echo $historial->numero[6] ?></span></div>
 							<div><span class="<?php echo $historial->color[7] ?>" id="historial-8"><?php echo $historial->numero[7] ?></span></div>
+							<div><span class="<?php echo $historial->color[8] ?>" id="historial-9"><?php echo $historial->numero[8] ?></span></div>
+							<div><span class="<?php echo $historial->color[9] ?>" id="historial-10"><?php echo $historial->numero[9] ?></span></div>
 						</div>
 					</div>
 

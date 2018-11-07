@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions name="Aleatorio"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="Aleatorio"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="Aleatorio"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <xsd:documentation></xsd:documentation>
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="Aleatorio">
+            <xsd:complexType name="generador">
+                <xsd:sequence>
+                    <xsd:element name="numero" type="tns:integer"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="generarRequest">
+        <wsdl:part name="otro" type="tns:integer"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="generarResponse">
+        <wsdl:part name="numero" type="tns:string"></wsdl:part>
+    </wsdl:message>
+
+    <wsdl:portType name="Aleatorio">
+        <wsdl:operation name="Generar">
+            <wsdl:input message="tns:generarRequest"/>
+            <wsdl:output message="tns:generarResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="Aleatorio" type="tns:Aleatorio">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Generar">
+            <soap:operation soapAction="http://localhost/source/server/setTipo.php"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="Aleatorio"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="Aleatorio"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Aleatorio">
+        <wsdl:port binding="tns:Aleatorio" name="GeneradorAleatorio">
+            <soap:address location="http://localhost/source/server/setTipo.php"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

@@ -8,13 +8,14 @@
 
     if(!empty($_GET["id"])){
         $id     = $_GET["id"];
-        $data   = apiTipo($id);
+        $data   = apiMitad($id);
         response(200, "Valid request", $data);
     }else{
         response(400, "Invalid Request", NULL);
     }
 
-    function apiTipo($id){
+
+    function apiMitad($id){
 
         $Query          = new Query();
         $data           = $Query->getFichas($id);
@@ -38,8 +39,9 @@
                 }
             }
         }
-
+        
         $valores = array("cantidadPago" => $cantidadPago, "cantidadApostada" => $cantidadApostada);
         return $valores;
     
     }
+

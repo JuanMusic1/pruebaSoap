@@ -19,30 +19,27 @@
 
     //Premio
     //Analizar premio números
-    $url    	    = getUrlBase()."source/apis/apiNumero.php?id=$id";
-    $client 	    = curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	    = curl_exec($client);	
-	$result 	    = json_decode($response);
-    $premioNumero   = $result->data->cantidadPago; 
-    $apuestaNumero  = $result->data->cantidadApostada;
+    $client=new SoapClient('http://localhost/source/server/setNumero.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp=$client->Generar($id);
+    $resp=json_decode($resp);
+    $premioNumero    = $resp->cantidadPago;
+    $apuestaNumero   = $resp->cantidadApostada;
 
 
     //Analizar premio por tipo
-    $url    	    = getUrlBase()."source/apis/apiTipo.php?id=$id";
-    $client 	    = curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	    = curl_exec($client);	
-	$result 	    = json_decode($response);
-    $premioTipo     = $result->data->cantidadPago; 
-    $apuestaTIpo    = $result->data->cantidadApostada;
+    $client=new SoapClient('http://localhost/source/server/setTipo.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp=$client->Generar($id);
+    $resp=json_decode($resp);
+    $premioTipo    = $resp->cantidadPago;
+    $apuestaTipo   = $resp->cantidadApostada;
+
 
     //Analizar premio por color
     $client=new SoapClient('http://localhost/source/server/setColor.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
     $resp=$client->Generar($id);
     $resp=json_decode($resp);
-    $premioFilas    = $resp->cantidadPago;
-    $apuestaFilas   = $resp->cantidadApostada;
+    $premioColor    = $resp->cantidadPago;
+    $apuestaColor   = $resp->cantidadApostada;
 
     //Analizar premio por fila
   
@@ -56,15 +53,15 @@
     $client=new SoapClient('http://localhost/source/server/setDocenas.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
     $resp=$client->Generar($id);
     $resp=json_decode($resp);
-    $premioFilas    = $resp->cantidadPago;
-    $apuestaFilas   = $resp->cantidadApostada;
+    $premioDocenas    = $resp->cantidadPago;
+    $apuestaDocenas   = $resp->cantidadApostada;
 
     //Analizar premio por mitad
     $client=new SoapClient('http://localhost/source/server/setMitad.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
     $resp=$client->Generar($id);
     $resp=json_decode($resp);
-    $premioFilas    = $resp->cantidadPago;
-    $apuestaFilas   = $resp->cantidadApostada;
+    $premioMitad    = $resp->cantidadPago;
+    $apuestaMitad   = $resp->cantidadApostada;
 
     //Resetar tabla fichas
     $Query = new Query();
@@ -74,10 +71,14 @@
     $premioTotal = $premioNumero + $premioTipo + $premioColor + $premioFilas + $premioDocenas + $premioMitad;
     $apuestaTotal = $apuestaNumero + $apuestaTipo + $apuestaColor + $apuestaFilas + $apuestaDocenas + $apuestaMitad;
     
-   //Actualizar la billetera
-   $client = new SoapClient('http://localhost/source/server/setActualizarBilletera.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-   $resp = $client->Generar($apuestaTotal, $premioTotal, $id);
-   $resp=json_decode($resp);
+    //Actualizar la billetera
+    $url    	    = getUrlBase()."source/apis/apiActualizarBilletera.php?id=$id&cantidadApostada=$apuestaTotal&cantidadPago=$premioTotal";
+    $client 	    = curl_init($url);
+	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+	$response 	    = curl_exec($client);	
+	$result 	    = json_decode($response);
+    $response       = $result->data;     
+    
 ?>
 <div class="wrapper">
 		<div class="container">
