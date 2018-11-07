@@ -8,9 +8,16 @@
 	$cantidadHistorial  = 10;
 
 	//Monedero
+	/*$url    	= getUrlBase()."source/apis/apiMonedero.php?id=$id";
+    $client 	= curl_init($url);
+	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+	$response 	= curl_exec($client);	
+	$result 	= json_decode($response);
+	$monedero   = $result->data;*/ 
 	$client = new SoapClient('http://localhost/source/server/setMonedero.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$monedero = $client->setMonedero($id);
-	$monedero = json_decode($monedero);
+	var_dump($monedero);
+	//$monedero = json_decode($monedero);
 
 	//Historial
 	$url    	= getUrlBase()."source/apis/apiHistorial.php?cantidad=$cantidadHistorial";

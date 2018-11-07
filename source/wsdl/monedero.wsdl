@@ -23,7 +23,7 @@
         <wsdl:part name="otro" type="tns:integer"></wsdl:part>
     </wsdl:message>
     <wsdl:message name="generarResponse">
-        <wsdl:part name="numero" type="tns:string"></wsdl:part>
+        <wsdl:part name="numero" type="tns:integer"></wsdl:part>
     </wsdl:message>
 
     <wsdl:portType name="Aleatorio">
