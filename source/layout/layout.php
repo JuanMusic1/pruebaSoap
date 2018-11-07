@@ -24,8 +24,16 @@
 	$historial  = $result->data; 
 
 
+<<<<<<< HEAD
     //Números calientes
 	$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
+=======
+	//Números calientes
+	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+	$calientes = $client->setCalientes($cantidadCalientes);
+    $calientes = json_decode($calientes);
+	/*$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
+>>>>>>> 27a2a45afaa06b3b665fe6e684a12f0b35ad867c
     $client 	= curl_init($url);
 	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 	$response 	= curl_exec($client);	

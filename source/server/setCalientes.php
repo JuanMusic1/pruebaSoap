@@ -12,7 +12,6 @@
         
         $Query      = new Query();
         $calientes  = $Query->getNumerosCalientes($cantidad);
-        $calientes  = json_decode($calientes);
         return $calientes;
         
     }
