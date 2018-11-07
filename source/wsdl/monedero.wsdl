@@ -27,7 +27,7 @@
     </wsdl:message>
 
     <wsdl:portType name="Aleatorio">
-        <wsdl:operation name="Generar">
+        <wsdl:operation name="setMonedero">
             <wsdl:input message="tns:generarRequest"/>
             <wsdl:output message="tns:generarResponse"/>
         </wsdl:operation>
@@ -35,7 +35,7 @@
 
     <wsdl:binding name="Aleatorio" type="tns:Aleatorio">
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="Generar">
+        <wsdl:operation name="setMonedero">
             <soap:operation soapAction="http://localhost/source/server/setMonedero.php"/>
             <wsdl:input>
                 <soap:body use="literal" namespace="Aleatorio"/>
