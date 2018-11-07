@@ -11,23 +11,17 @@
 	$client = new SoapClient('http://localhost/source/server/setMonedero.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$monedero = $client->setMonedero($id);
 
-
 	//Historial
 	$client = new SoapClient('http://localhost/source/server/setHistorial.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$historial = $client->Generar($cantidadHistorial);
 	$historial = json_decode($historial);
-	//var_dump($resp);
-	//$historial  = $resp->data;
-
 
 	//Números calientes
 	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$calientes = $client->setCalientes($cantidadCalientes);
 	$calientes = json_decode($calientes);
-	//var_dump($calientes);
 
 	//Números fríos
-
 	$client = new SoapClient('http://localhost/source/server/setFrios.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$frios = $client->setFrios($cantidadCalientes);
 	$frios = json_decode($frios);

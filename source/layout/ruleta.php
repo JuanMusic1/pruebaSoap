@@ -10,56 +10,51 @@
 	$id 				= $_SESSION['id'];
 
     //Call girar
-    $url    	= getUrlBase()."source/apis/apiGirar.php?id=$id";
-    $client 	= curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	= curl_exec($client);	
-	$result 	= json_decode($response);
-    $ganador    = $result->data; 
+
+    $client = new SoapClient('http://localhost/source/server/setGirar.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $result = $client->setGirar($id);
+    $ganador = (int)$result;
 
     //Premio
     //Analizar premio números
-    $client=new SoapClient('http://localhost/source/server/setNumero.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    $client = new SoapClient('http://localhost/source/server/setNumero.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioNumero    = $resp->cantidadPago;
     $apuestaNumero   = $resp->cantidadApostada;
 
-
     //Analizar premio por tipo
-    $client=new SoapClient('http://localhost/source/server/setTipo.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    $client = new SoapClient('http://localhost/source/server/setTipo.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioTipo    = $resp->cantidadPago;
     $apuestaTipo   = $resp->cantidadApostada;
 
-
     //Analizar premio por color
-    $client=new SoapClient('http://localhost/source/server/setColor.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    $client = new SoapClient('http://localhost/source/server/setColor.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioColor    = $resp->cantidadPago;
     $apuestaColor   = $resp->cantidadApostada;
 
-    //Analizar premio por fila
-  
-    $client=new SoapClient('http://localhost/source/server/setFilas.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    //Analizar premio por fila  
+    $client = new SoapClient('http://localhost/source/server/setFilas.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioFilas    = $resp->cantidadPago;
     $apuestaFilas   = $resp->cantidadApostada;
 
     //Analizar premio por docena
-    $client=new SoapClient('http://localhost/source/server/setDocenas.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    $client = new SoapClient('http://localhost/source/server/setDocenas.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioDocenas    = $resp->cantidadPago;
     $apuestaDocenas   = $resp->cantidadApostada;
 
     //Analizar premio por mitad
-    $client=new SoapClient('http://localhost/source/server/setMitad.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-    $resp=$client->Generar($id);
-    $resp=json_decode($resp);
+    $client = new SoapClient('http://localhost/source/server/setMitad.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($id);
+    $resp = json_decode($resp);
     $premioMitad    = $resp->cantidadPago;
     $apuestaMitad   = $resp->cantidadApostada;
 
