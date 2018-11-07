@@ -13,12 +13,10 @@
 
 
 	//Historial
-	$url    	= getUrlBase()."source/apis/apiHistorial.php?cantidad=$cantidadHistorial";
-    $client 	= curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	= curl_exec($client);	
-	$result 	= json_decode($response);
-	$historial  = $result->data; 
+	$client = new SoapClient('http://localhost/source/server/setHistorial.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+	$resp = $client->Generar($cantidadHistorial);
+	$resp = json_decode($resp);
+	$historial  = $resp->data;
 
 
 	//Números calientes
@@ -27,7 +25,7 @@
     $calientes = json_decode($calientes);
 
 	//Números fríos
-	
+
 	$client = new SoapClient('http://localhost/source/server/setFrios.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$frios = $client->setFrios($cantidadCalientes);
 	$frios = json_decode($frios);
@@ -43,13 +41,13 @@ $(document).ready(function(){
     //Contar apuestas
     //Touch chip
     $('.chip').click(function() {
-        
+
         //Get id
         var value = $(this).attr('id');
-        
+
         //Change cursor
         $("#layout").css({ 'cursor': "url('assets/chips/cursors/"+value+".svg'), auto" });
-        
+
         //Touch target
         $('.target').unbind().click(function() {
 
@@ -68,7 +66,7 @@ $(document).ready(function(){
             chip.style.pointerEvents    = "none"; //Esto es muy importante
             chip.style.top              = top  + addTop  + "px";
             chip.style.left             = left + addLeft + "px";
-        
+
             //Apostar
             var kross = {
                 target : bet,
@@ -101,10 +99,10 @@ $(document).ready(function(){
 					}
 				}
             });
-            
+
         });
     });
-	
+
 	//Bet
     $('#betButton').click(function() {
         window.location.href = "/result.php";
@@ -120,11 +118,11 @@ $(document).ready(function(){
 			<div class="number center-xs row" id="layout">
 
 			<div class="bottom-3 col-xs-12 row around-xs center-xs">
-			<div class="col-xs-1">	
+			<div class="col-xs-1">
 				</div>
-					<div class="col-xs-7">	
+					<div class="col-xs-7">
 						<h3>Historial</h3>
-						<div class="group-box-numbers group-box-numbers-history">	
+						<div class="group-box-numbers group-box-numbers-history">
 							<div><span class="<?php echo $historial->color[0] ?>" id="historial-1"><?php echo $historial->numero[0] ?></span></div>
 							<div><span class="<?php echo $historial->color[1] ?>" id="historial-2"><?php echo $historial->numero[1] ?></span></div>
 							<div><span class="<?php echo $historial->color[2] ?>" id="historial-3"><?php echo $historial->numero[2] ?></span></div>
@@ -137,7 +135,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 
-				<div class="col-xs-1">	
+				<div class="col-xs-1">
 					<h3>Monedero</h3>
 						<div class="golden-box row middle-xs">
     						<div class="col-xs">
@@ -147,9 +145,9 @@ $(document).ready(function(){
     					</div>
 					</div>
 				</div>
-				<div class="col-xs-1">	
+				<div class="col-xs-1">
 				</div>
-			</div>	
+			</div>
 
 
 			<!-- ceros -->
@@ -161,7 +159,7 @@ $(document).ready(function(){
 					<div class="target col-xs-offset-6 col-xs-6 green vertical_text" id="0">0</div>
 				</div>
 			</div>
-			
+
 			<!-- nums -->
 			<div class="number col-xs-10">
 				<div class="row">
@@ -217,8 +215,8 @@ $(document).ready(function(){
 						<div class="target red col-xs-2" id="red"></div>
 						<div class="target black col-xs-2" id="black"></div>
 						<div class="target green col-xs-2" id="impar">IMPAR</div>
-						<div class="target green col-xs-2" id="19to36">19-36</div>						
-				</div>			
+						<div class="target green col-xs-2" id="19to36">19-36</div>
+				</div>
 			</div>
 
 			<!-- 2:1 -->
@@ -236,19 +234,19 @@ $(document).ready(function(){
 
 			<!-- Hot and cold numbers -->
 				<div class="col-xs-10 row around-xs center-xs">
-					<div class="col-xs">	
+					<div class="col-xs">
 						<h3>Números calientes</h3>
-						<div class="group-box-numbers group-box-numbers-hot">	
+						<div class="group-box-numbers group-box-numbers-hot">
 							<div><span class="hot" id="hot-1"><?php echo $calientes[0] ?></span></div>
 							<div><span class="hot" id="hot-2"><?php echo $calientes[1] ?></span></div>
 							<div><span class="hot" id="hot-3"><?php echo $calientes[2] ?></span></div>
 							<div><span class="hot" id="hot-4"><?php echo $calientes[3] ?></span></div>
 							<div><span class="hot" id="hot-5"><?php echo $calientes[4] ?></span></div>
 						</div>
-					</div>				
+					</div>
 					<div class="col-xs">
 						<h3>Números frios</h3>
-						<div class="group-box-numbers group-box-numbers-cold">	
+						<div class="group-box-numbers group-box-numbers-cold">
 							<div><span class="cold" id="cold-1"><?php echo $frios[0] ?></span></div>
 							<div><span class="cold" id="cold-2"><?php echo $frios[1] ?></span></div>
 							<div><span class="cold" id="cold-3"><?php echo $frios[2] ?></span></div>
@@ -256,8 +254,8 @@ $(document).ready(function(){
 							<div><span class="cold" id="cold-5"><?php echo $frios[4] ?></span></div>
 						</div>
 					</div>
-				</div>			
-			
+				</div>
+
 			<!-- Chips -->
 			<div class="top-3 center-xs row around-xs">
 				<div class="col-xs">
@@ -266,15 +264,15 @@ $(document).ready(function(){
 				<div class="col-xs">
 					<img class="chip" id="500" src="assets/chips/images/500.svg" />
 				</div>
-				<div class="col-xs">			
+				<div class="col-xs">
 					<img class="chip" id="1000" src="assets/chips/images/1000.svg" />
 				</div>
-				<div class="col-xs">			
+				<div class="col-xs">
 					<img class="chip" id="5000" src="assets/chips/images/5000.svg" />
 				</div>
-				<div class="col-xs">			
+				<div class="col-xs">
 					<img class="chip" id="10000" src="assets/chips/images/10000.svg" />
-				</div>				
+				</div>
 			</div>
 
 
@@ -284,8 +282,8 @@ $(document).ready(function(){
 					<a id="betButton" class="button button-highlight button-giant">Girar</a>
 				</div>
 			</div>
-			
-			
+
+
 			</div>
 
 		</div>
