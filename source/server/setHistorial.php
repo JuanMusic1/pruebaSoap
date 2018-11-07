@@ -9,7 +9,7 @@
     function Generar($cantidad){
       $Query      = new Query();
       $historial  = $Query->getHistorial($cantidad);
-      $historial  = json_decode($historial);
+      return $historial;
     }
 
     //Send function

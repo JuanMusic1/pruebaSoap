@@ -14,15 +14,17 @@
 
 	//Historial
 	$client = new SoapClient('http://localhost/source/server/setHistorial.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
-	$resp = $client->Generar($cantidadHistorial);
-	$resp = json_decode($resp);
-	$historial  = $resp->data;
+	$historial = $client->Generar($cantidadHistorial);
+	$historial = json_decode($historial);
+	//var_dump($resp);
+	//$historial  = $resp->data;
 
 
 	//Números calientes
 	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$calientes = $client->setCalientes($cantidadCalientes);
-    $calientes = json_decode($calientes);
+	$calientes = json_decode($calientes);
+	//var_dump($calientes);
 
 	//Números fríos
 
