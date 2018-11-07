@@ -17,3 +17,4 @@ Copiar desde la carpeta clonada a /var/www/html
 $ cd soapruleta
 $ cp -r * /var/www/html
 ```
+El repositorio tiene 2 branchs dev y master, dev se utilizará para cambios de pruebas y master es de produccion
