@@ -72,12 +72,9 @@
     $apuestaTotal = $apuestaNumero + $apuestaTipo + $apuestaColor + $apuestaFilas + $apuestaDocenas + $apuestaMitad;
     
     //Actualizar la billetera
-    $url    	    = getUrlBase()."source/apis/apiActualizarBilletera.php?id=$id&cantidadApostada=$apuestaTotal&cantidadPago=$premioTotal";
-    $client 	    = curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	    = curl_exec($client);	
-	$result 	    = json_decode($response);
-    $response       = $result->data;     
+    $client = new SoapClient('http://localhost/source/server/setActualizarBilletera.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+    $resp = $client->Generar($apuestaTotal, $premioTotal, $id);
+    $resp=json_decode($resp);
     
 ?>
 <div class="wrapper">
