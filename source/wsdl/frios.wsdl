@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions name="Frios"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="Frios"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="Frios"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <xsd:documentation></xsd:documentation>
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="Frios">
+            <xsd:complexType name="frios">
+                <xsd:sequence>
+                    <xsd:element name="numeros" type="tns:integer"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="friosRequest">
+        <wsdl:part name="otro" type="tns:integer"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="friosResponse">
+        <wsdl:part name="frios" type="tns:string"></wsdl:part>
+    </wsdl:message>
+
+    <wsdl:portType name="Frios">
+        <wsdl:operation name="setFrios">
+            <wsdl:input message="tns:friosRequest"/>
+            <wsdl:output message="tns:friosResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Frios" type="tns:Frios">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="setFrios">
+            <soap:operation soapAction="http://localhost/source/server/setFrios.php"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="Historico"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="Historico"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Frios">
+        <wsdl:port binding="tns:Frios" name="TirarFrios">
+            <soap:address location="http://localhost/source/server/setFrios.php"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

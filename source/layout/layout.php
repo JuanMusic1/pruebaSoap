@@ -28,20 +28,12 @@
 	$client = new SoapClient('http://localhost/source/server/setCalientes.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
 	$calientes = $client->setCalientes($cantidadCalientes);
     $calientes = json_decode($calientes);
-	/*$url    	= getUrlBase()."source/apis/apiCalientes.php?cantidad=$cantidadCalientes";
-    $client 	= curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	= curl_exec($client);	
-	$result 	= json_decode($response);
-	$calientes  = $result->data; */
 
-    //Números fríos
-	$url    	= getUrlBase()."source/apis/apiFrios.php?cantidad=$cantidadFrios";
-    $client 	= curl_init($url);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-	$response 	= curl_exec($client);	
-	$result 	= json_decode($response);
-	$frios		= $result->data; 	
+	//Números fríos
+	
+	$client = new SoapClient('http://localhost/source/server/setFrios.php?wsdl',['trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE]);
+	$frios = $client->setFrios($cantidadCalientes);
+	$frios = json_decode($frios);
 
 ?>
 <script>
